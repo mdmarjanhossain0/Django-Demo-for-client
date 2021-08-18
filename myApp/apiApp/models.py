@@ -3,7 +3,7 @@ from django.db import models
 
 # Create your models here.
 class ApiApp(models.Model):
-    name = models.CharField(max_length=64)
+    name = models.CharField(max_length=64)        #unique=True
     alpha2code = models.CharField(max_length=2)
     alpha3code = models.CharField(max_length=3)
     capital = models.CharField(max_length=64)
