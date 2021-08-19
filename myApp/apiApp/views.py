@@ -10,17 +10,17 @@ def home(request):
     context = {
         'response': responses
     }
-    for response in responses :
-        ApiApp(
-                    name = response["name"],
-                    alpha2code = response["alpha2Code"],
-                    alpha3code = response["alpha3Code"],
-                    capital = response["capital"],
-                    population = response["population"],
-                    timezones = response["timezones"],
-                    languages = response["languages"],
-                    borders = response["borders"]
-                ).save()
+    # for response in responses :
+    #     ApiApp(
+    #                 name = response["name"],
+    #                 alpha2code = response["alpha2Code"],
+    #                 alpha3code = response["alpha3Code"],
+    #                 capital = response["capital"],
+    #                 population = response["population"],
+    #                 timezones = response["timezones"],
+    #                 languages = response["languages"],
+    #                 borders = response["borders"]
+    #             ).save()
 
     return render(request, "apiApp/home.html", context)
 
