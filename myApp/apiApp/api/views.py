@@ -1,10 +1,13 @@
 from rest_framework import status
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.authentication import TokenAuthentication
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.generics import ListAPIView
 from rest_framework.filters import SearchFilter, OrderingFilter
 
+from account.models import Account
 from apiApp.models import ApiApp
 from apiApp.api.serializers import CountrySerializer, CountryUpdateSerializer, CountryCreateSerializer
 SUCCESS = 'success'
@@ -24,6 +27,8 @@ CREATE_SUCCESS = 'created'
 class ApiCountryListView(ListAPIView):
 	queryset = ApiApp.objects.all()
 	serializer_class = CountrySerializer
+	# authentication_classes = (TokenAuthentication,)
+	# permission_classes = (IsAuthenticated,)
 	pagination_class = PageNumberPagination
 	filter_backends = (SearchFilter, OrderingFilter)
 	search_fields = ('name', 'capital', 'population', 'languages', 'borders')
@@ -32,6 +37,7 @@ class ApiCountryListView(ListAPIView):
 # Url: http://127.0.0.1:8000/api/country/<country_name>/update
 
 @api_view(['PUT'])
+@permission_classes((IsAuthenticated,))
 def api_update_country_view(request, country_name):
 
 	print(request.data)
@@ -61,6 +67,7 @@ def api_update_country_view(request, country_name):
 
 # Url: http://127.0.0.1:8000/api/country/create
 @api_view(['POST'])
+@permission_classes((IsAuthenticated,))
 def api_create_country_view(request):
 
 	if request.method == 'POST':
@@ -78,6 +85,7 @@ def api_create_country_view(request):
 
 #  http://127.0.0.1:8000/api/country/<country_name>/delete
 @api_view(['DELETE'])
+@permission_classes((IsAuthenticated,))
 def api_delete_country_view(request, country_name):
 
 	try:

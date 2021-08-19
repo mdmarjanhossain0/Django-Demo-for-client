@@ -5,7 +5,8 @@ from .models import ApiApp
 
 # Create your views here.
 def home(request):
-    responses = requests.get('https://restcountries.eu/rest/v2/all').json()
+    responses = {}
+    # responses = requests.get('https://restcountries.eu/rest/v2/all').json()
 
     context = {
         'response': responses
